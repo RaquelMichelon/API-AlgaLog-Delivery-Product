@@ -11,9 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
 
+import com.algaworks.algalog.domain.ValidationGroups;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,12 +36,16 @@ public class Entrega {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Valid //para validar o objeto cliente
+	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
+	@NotNull
 	@ManyToOne //muitas entregas possuem um cliente / JoinColumn padrao eh cliente_id
 	private Cliente cliente;
 	
 	@Embedded //abstrair os dados do destinatario para outra classe mas mapeando para a tabela entrega
 	private Destinatario destinatario;
 	
+	@NotNull
 	private BigDecimal taxa;
 	
 	@JsonProperty(access = Access.READ_ONLY)
