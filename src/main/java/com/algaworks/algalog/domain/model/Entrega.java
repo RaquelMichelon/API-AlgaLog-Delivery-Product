@@ -42,6 +42,8 @@ public class Entrega {
 	@ManyToOne //muitas entregas possuem um cliente / JoinColumn padrao eh cliente_id
 	private Cliente cliente;
 	
+	@Valid
+	@NotNull
 	@Embedded //abstrair os dados do destinatario para outra classe mas mapeando para a tabela entrega
 	private Destinatario destinatario;
 	
