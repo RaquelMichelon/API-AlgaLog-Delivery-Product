@@ -11,14 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
-
-import com.algaworks.algalog.domain.ValidationGroups;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,36 +20,36 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded=true)
-@Entity //Jakarta Persistence
+@Entity 
 public class Entrega {
 	
-	@EqualsAndHashCode.Include //gera equals and hash code apenas para id
+	@EqualsAndHashCode.Include 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Valid //para validar o objeto cliente
-	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
-	@NotNull
-	@ManyToOne //muitas entregas possuem um cliente / JoinColumn padrao eh cliente_id
+//	@Valid
+//	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
+//	@NotNull
+	@ManyToOne 
 	private Cliente cliente;
 	
-	@Valid
-	@NotNull
-	@Embedded //abstrair os dados do destinatario para outra classe mas mapeando para a tabela entrega
+//	@Valid
+//	@NotNull
+	@Embedded 
 	private Destinatario destinatario;
 	
-	@NotNull
+//	@NotNull
 	private BigDecimal taxa;
 	
-	@JsonProperty(access = Access.READ_ONLY)
-	@Enumerated(EnumType.STRING) //para armazenar a string que representa a enumeracao
+//	@JsonProperty(access = Access.READ_ONLY)
+	@Enumerated(EnumType.STRING) 
 	private StatusEntrega status;
 	
-	@JsonProperty(access = Access.READ_ONLY)
+//	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataPedido;
 	
-	@JsonProperty(access = Access.READ_ONLY) //para evitar manipulacao desse campo pelo cliente da api
+//	@JsonProperty(access = Access.READ_ONLY) 
 	private OffsetDateTime dataFinalizacao;
 	
 

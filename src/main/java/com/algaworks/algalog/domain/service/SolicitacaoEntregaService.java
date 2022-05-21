@@ -26,7 +26,6 @@ public class SolicitacaoEntregaService {
 		Cliente cliente = catalogoClienteService.buscar(entrega.getCliente().getId());
 		
 		entrega.setCliente(cliente);
-		
 		//por padrao entra com status pendente
 		entrega.setStatus(StatusEntrega.PENDENTE);
 		entrega.setDataPedido(OffsetDateTime.now());

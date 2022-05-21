@@ -15,13 +15,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)  //generate equals and hashcodes only by id property - using lombok
+@EqualsAndHashCode(onlyExplicitlyIncluded = true) 
 @Getter
 @Setter
 @Entity
 public class Cliente {
 	
-	@NotNull(groups = ValidationGroups.ClienteId.class)
+//	@NotNull(groups = ValidationGroups.ClienteId.class)
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,12 +36,9 @@ public class Cliente {
 	@Size(max = 255)
 	private String email;
 	
-//	@Column(name = "fone")
 	@NotBlank
 	@Size(max = 20)
 	private String telefone;
-	
-
 	
 	
 }
